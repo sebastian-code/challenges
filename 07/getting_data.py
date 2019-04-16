@@ -14,12 +14,13 @@ from config import CONSUMER_KEY, CONSUMER_SECRET
 from config import ACCESS_TOKEN, ACCESS_SECRET
 
 MAX_TWEETS = 1000
-OUTPUT = 'data_{}.json'.format(int(time.time()))
+OUTPUT = "data_{}.json".format(int(time.time()))
 
 
 class MyStreamer(TwythonStreamer):
     """our own subclass of TwythonStreamer that specifies
     how to interact with the stream"""
+
     count = 0
 
     def on_success(self, data):
@@ -27,10 +28,10 @@ class MyStreamer(TwythonStreamer):
         here data will be a Python object representing a tweet"""
 
         # only want to collect English-language tweets
-        if data['lang'] == 'en':
+        if data["lang"] == "en":
             print(data)
-            with open(OUTPUT, 'a') as f:
-                f.write(json.dumps(data) + '\n')
+            with open(OUTPUT, "a") as f:
+                f.write(json.dumps(data) + "\n")
             self.count += 1
 
         # stop when we've collected enough
@@ -43,9 +44,8 @@ class MyStreamer(TwythonStreamer):
 
 
 if __name__ == "__main__":
-    keywords_and = ' '.join(sys.argv[1:])
+    keywords_and = " ".join(sys.argv[1:])
 
-    stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET,
-                        ACCESS_TOKEN, ACCESS_SECRET)
+    stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET)
 
     stream.statuses.filter(track=keywords_and)

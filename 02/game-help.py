@@ -18,8 +18,7 @@ def draw_letters():
 def input_word(draw):
     """Ask player for a word and validate against draw.
     Use _validation(word, draw) helper."""
-    pass 
-
+    pass
 
 
 def _validation(word, draw):
@@ -58,21 +57,20 @@ def max_word_value(words):
 def main():
     """Main game interface calling the previously defined methods"""
     draw = draw_letters()
-    print('Letters drawn: {}'.format(', '.join(draw)))
+    print("Letters drawn: {}".format(", ".join(draw)))
 
     word = input_word(draw)
     word_score = calc_word_value(word)
-    print('Word chosen: {} (value: {})'.format(word, word_score))
+    print("Word chosen: {} (value: {})".format(word, word_score))
 
     possible_words = get_possible_dict_words(draw)
 
     max_word = max_word_value(possible_words)
     max_word_score = calc_word_value(max_word)
-    print('Optimal word possible: {} (value: {})'.format(
-        max_word, max_word_score))
+    print("Optimal word possible: {} (value: {})".format(max_word, max_word_score))
 
     game_score = word_score / max_word_score * 100
-    print('You scored: {:.1f}'.format(game_score))
+    print("You scored: {:.1f}".format(game_score))
 
 
 if __name__ == "__main__":

@@ -7,10 +7,10 @@ from unittest.mock import patch
 from tweets import TWEETS  # mock data
 from usertweets import UserTweets, NUM_TWEETS
 
-HANDLE = 'pybites'
-MAX_ID = '819831370113351680'
+HANDLE = "pybites"
+MAX_ID = "819831370113351680"
 
-Tweet = namedtuple('Tweet', ['id_str', 'created_at', 'text'])
+Tweet = namedtuple("Tweet", ["id_str", "created_at", "text"])
 
 
 def read_csv(fname):
@@ -26,7 +26,7 @@ def read_csv(fname):
 class TestUserTweets(unittest.TestCase):
     def setUp(self):
         super().setUp()
-        with patch('tweepy.API.user_timeline') as mock_timeline:
+        with patch("tweepy.API.user_timeline") as mock_timeline:
             mock_timeline.return_value = TWEETS
             self.user = UserTweets(HANDLE, max_id=MAX_ID)
 
@@ -48,8 +48,7 @@ class TestUserTweets(unittest.TestCase):
         self.assertEqual(len(csv_tweets), NUM_TWEETS)
         tw_n = 0  # first
         self.assertEqual(csv_tweets[tw_n].id_str, MAX_ID)
-        self.assertEqual(csv_tweets[tw_n].created_at,
-                         str(TWEETS[tw_n].created_at))
+        self.assertEqual(csv_tweets[tw_n].created_at, str(TWEETS[tw_n].created_at))
         self.assertEqual(csv_tweets[tw_n].text, TWEETS[tw_n].text)
         tw_n = -1  # last
         self.assertEqual(csv_tweets[tw_n].text, TWEETS[tw_n].text)

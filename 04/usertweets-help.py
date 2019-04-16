@@ -7,15 +7,14 @@ import tweepy
 from config import CONSUMER_KEY, CONSUMER_SECRET
 from config import ACCESS_TOKEN, ACCESS_SECRET
 
-DEST_DIR = 'data'
-EXT = 'csv'
+DEST_DIR = "data"
+EXT = "csv"
 NUM_TWEETS = 100
 
-Tweet = namedtuple('Tweet', 'id_str created_at text')
+Tweet = namedtuple("Tweet", "id_str created_at text")
 
 
 class UserTweets(object):
-
     def __init__(self, handle, max_id=None):
         """Get handle and optional max_id.
         Use tweepy.OAuthHandler, set_access_token and tweepy.API
@@ -51,8 +50,8 @@ class UserTweets(object):
 
 if __name__ == "__main__":
 
-    for handle in ('pybites', '_juliansequeira', 'bbelderbos'):
-        print('--- {} ---'.format(handle))
+    for handle in ("pybites", "_juliansequeira", "bbelderbos"):
+        print("--- {} ---".format(handle))
         user = UserTweets(handle)
         for tw in user[:5]:
             print(tw)

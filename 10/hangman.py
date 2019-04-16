@@ -7,16 +7,17 @@ from graphics import hang_graphics
 ASCII = list(ascii_lowercase)
 HANG_GRAPHICS = list(hang_graphics())
 ALLOWED_GUESSES = len(HANG_GRAPHICS)
-PLACEHOLDER = '_'
+PLACEHOLDER = "_"
 
 
 class Hangman(object):
-    pass 
+    pass
+
 
 # or use functions ...
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) > 1:
         word = sys.argv[1]
     else:

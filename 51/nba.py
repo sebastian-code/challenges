@@ -5,16 +5,17 @@ import sqlite3
 
 import requests
 
-DATA_URL = 'https://query.data.world/s/ezwk64ej624qyverrw6x7od7co7ftm'
-DATA_CACHED = 'nba.data'
-NBA_DB = 'nba.db'
+DATA_URL = "https://query.data.world/s/ezwk64ej624qyverrw6x7od7co7ftm"
+DATA_CACHED = "nba.data"
+NBA_DB = "nba.db"
 
 # start clean
 if os.path.isfile(NBA_DB):
     os.remove(NBA_DB)
 
-Player = namedtuple('Player', ('name year first_year team college active '
-                               'games avg_min avg_points'))
+Player = namedtuple(
+    "Player", ("name year first_year team college active " "games avg_min avg_points")
+)
 
 conn = sqlite3.connect(NBA_DB)
 cur = conn.cursor()
@@ -28,28 +29,31 @@ def _get_csv_data():
             return f.read()
     else:
         with requests.Session() as session:
-            return session.get(DATA_URL).content.decode('utf-8')
+            return session.get(DATA_URL).content.decode("utf-8")
 
 
 def load_data():
     """GIVEN:
        Converts NBA CSV data into a list of Player namedtuples"""
     content = _get_csv_data()
-    reader = csv.DictReader(content.splitlines(), delimiter=',')
+    reader = csv.DictReader(content.splitlines(), delimiter=",")
     for row in reader:
-        player = Player(name=row['Player'],
-                        year=row['Draft_Yr'],
-                        first_year=row['first_year'],
-                        team=row['Team'],
-                        college=row['College'],
-                        active=row['Yrs'],
-                        games=row['Games'],
-                        avg_min=row['Minutes.per.Game'],
-                        avg_points=row['Points.per.Game'])
+        player = Player(
+            name=row["Player"],
+            year=row["Draft_Yr"],
+            first_year=row["first_year"],
+            team=row["Team"],
+            college=row["College"],
+            active=row["Yrs"],
+            games=row["Games"],
+            avg_min=row["Minutes.per.Game"],
+            avg_points=row["Points.per.Game"],
+        )
         yield player
 
 
 # CODE HERE (tests under __main__):
+
 
 def import_to_db(players=None):
     """Create database table in sqlite3 and import the players data
@@ -98,12 +102,12 @@ def most_games_per_year_for_veterans():
     pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import_to_db()
 
     # A. check if the import went well
     def _verify_total_row_count_after_import():
-        sql = '''SELECT COUNT(*) FROM players'''
+        sql = """SELECT COUNT(*) FROM players"""
         cur.execute(sql)
         ret = cur.fetchall()
         return ret[0][0]
@@ -111,7 +115,7 @@ if __name__ == '__main__':
     assert _verify_total_row_count_after_import() == 3961
 
     # B. some simple asserts of the data analysis functions
-    assert player_with_max_points_per_game() == 'Michael Jordan'
+    assert player_with_max_points_per_game() == "Michael Jordan"
 
     assert number_of_players_from_duke() == 58
 
@@ -121,6 +125,12 @@ if __name__ == '__main__':
 
     assert int(year_with_most_drafts()) == 1984
 
-    expected = ['A.C. Green', 'Alex English', 'Jack Sikma',
-                'John Stockton', 'Mark Eaton', 'Terry Tyler']
+    expected = [
+        "A.C. Green",
+        "Alex English",
+        "Jack Sikma",
+        "John Stockton",
+        "Mark Eaton",
+        "Terry Tyler",
+    ]
     assert sorted(most_games_per_year_for_veterans()) == expected

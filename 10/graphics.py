@@ -51,6 +51,6 @@ def hang_graphics():
 	|"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     graphics = list(hang_graphics())
     print(len(graphics))

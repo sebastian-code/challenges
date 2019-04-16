@@ -12,18 +12,20 @@ from time import sleep
 import feedparser
 
 INTERVAL = 24 * 60 * 60  # change if you don't want every day
-FEED = 'your_feed'
+FEED = "your_feed"
 
 
-# Feed parsing
+#  Feed parsing
+
 
 def parse_feed(feed=FEED):
     items = []
-    # ...
+    #  ...
     return items
 
 
 # Keep cache of feed in SQLite
+
 
 def get_episodes_from_db():
     pass
@@ -33,7 +35,8 @@ def add_new_episodes_to_db(episodes):
     pass
 
 
-# Send out new episode and mark as complete
+#  Send out new episode and mark as complete
+
 
 def get_random_episode():
     pass
@@ -54,10 +57,10 @@ def main():
         for episode in feed:
             pass
         # ...
-        # etc
+        #  etc
         # ...
-        sleep(INTERVAL)  # or use system cron / sched / pypi
+        sleep(INTERVAL)  #  or use system cron / sched / pypi
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
