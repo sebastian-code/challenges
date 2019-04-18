@@ -9,30 +9,17 @@ def load_words():
     return full_list
 
 
-
 def calc_word_value(word):
     """Calculate the value of the word entered into function
     using imported constant mapping LETTER_SCORES"""
-    return sum([LETTER_SCORES[e] for e in word.upper()])
+    return sum([LETTER_SCORES.get(letter, 0) for letter in word.upper()])
 
 
-def max_word_value(word=load_words()):
+def max_word_value(words=load_words()):
     """Calculate the word with the max value, can receive a list
     of words as arg, if none provided uses default DICTIONARY"""
-    result = 0
-    line = ""
-    for e in word:
-        try:
-            new_result = calc_word_value(e)
+    return max(words, key=calc_word_value)
 
-        except Exception:
-            continue
-
-        if new_result > result:
-            result = new_result
-            line = e
-
-    return line
 
 if __name__ == "__main__":
-    pass  # run unittests to validate
+    pass
