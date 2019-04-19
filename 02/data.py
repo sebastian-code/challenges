@@ -1,5 +1,6 @@
 from collections import namedtuple
 
+
 Letter = namedtuple("Letter", "name amount value")
 
 
@@ -9,9 +10,6 @@ def _load_words():
 
 
 DICTIONARY = _load_words()
-assert len(DICTIONARY) == 234371
-
-
 # generated with https://github.com/pybites/blog_code/blob/master/BeautifulSoup/scrabble_distribution.py
 distribution = [
     Letter(name="A", amount="9", value="1"),
@@ -43,9 +41,6 @@ distribution = [
 ]
 
 POUCH = list("".join(list(letter.name * int(letter.amount) for letter in distribution)))
-assert len(POUCH) == 98  # no wildcards in this simple game
-
-
 LETTER_SCORES = dict(
     zip(
         [letter.name for letter in distribution],
@@ -53,6 +48,8 @@ LETTER_SCORES = dict(
     )
 )
 
+assert len(DICTIONARY) == 234371
+assert len(POUCH) == 98  # no wildcards in this simple game
 assert LETTER_SCORES["A"] == 1
 assert LETTER_SCORES["Q"] == 10
 assert sum(LETTER_SCORES.values()) == 87
